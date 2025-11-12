@@ -1,2 +1,0 @@
-# CouncilAI
-My HybridAI stack.
