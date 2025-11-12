@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+# build output
+.next/
+dist/
+# system files
+.DS_Store
+*.log
+# environment
+.env
+.env.local
+.env.production
+# docker
+*.pid
+*.sock
+# model & data volumes
+services/ollama/
+services/qdrant/data/
+#project snapshots
+.zip
