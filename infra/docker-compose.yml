@@ -1,43 +1,45 @@
-services:
-  nextjs:
-    build: ../apps/nextjs
-    container_name: councilai-next
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=development
-      - QDRANT_URL=http://qdrant:6333
-      - REDIS_URL=redis://redis:6379
-      - OLLAMA_API=http://ollama:11434
-    volumes:
-      - ../apps/nextjs:/usr/src/app
-    depends_on:
-      - ollama
-      - qdrant
-      - redis
-    command: npm run dev
+ services:
+   nextjs:
+     build: ../apps/nextjs
+     container_name: councilai-next
+     ports:
+       - "3000:3000"
+     environment:
+       - NODE_ENV=development
+       - QDRANT_URL=http://qdrant:6333
+       - REDIS_URL=redis://redis:6379
+       - OLLAMA_API=http://ollama:11434
+       - LOCAL_MODEL=deepseek-r1:8b
+       - EMBEDDING_MODEL=bge-m3:latest
+     volumes:
+       - ../apps/nextjs:/usr/src/app
+     depends_on:
+       - ollama
+       - qdrant
+       - redis
+     command: npm run dev
 
-  ollama:
-    image: ollama/ollama:latest
-    container_name: councilai-ollama
-    ports:
-      - "11434:11434"
-    volumes:
-      - ../services/ollama:/root/.ollama/
-    restart: unless-stopped
+   ollama:
+     image: ollama/ollama:latest
+     container_name: councilai-ollama
+     ports:
+       - "11434:11434"
+     volumes:
+       - ../services/ollama:/root/.ollama/
+     restart: unless-stopped
 
-  qdrant:
-    image: qdrant/qdrant:latest
-    container_name: councilai-qdrant
-    ports:
-      - "6333:6333"
-    volumes:
-      - ../services/qdrant/data:/qdrant/storage
-    restart: unless-stopped
+   qdrant:
+     image: qdrant/qdrant:latest
+     container_name: councilai-qdrant
+     ports:
+       - "6333:6333"
+     volumes:
+       - ../services/qdrant/data:/qdrant/storage
+     restart: unless-stopped
 
-  redis:
-    image: redis:7-alpine
-    container_name: councilai-redis
-    ports:
-      - "6379:6379"
-    restart: unless-stopped
+   redis:
+     image: redis:7-alpine
+     container_name: councilai-redis
+     ports:
+       - "6379:6379"
+     restart: unless-stopped
