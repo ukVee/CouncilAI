@@ -11,6 +11,7 @@
        - OLLAMA_API=http://ollama:11434
        - LOCAL_MODEL=deepseek-r1:8b
        - EMBEDDING_MODEL=bge-m3:latest
+       - GEMINI_API_KEY=${GEMINI_API_KEY}
      volumes:
        - ../apps/nextjs:/usr/src/app
      depends_on:
